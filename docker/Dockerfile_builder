@@ -1,0 +1,20 @@
+FROM ros:humble-ros-base
+
+# Creating a non-root user with sudo privileges and custom bashrc
+RUN useradd -m -s /bin/bash -G sudo ros
+RUN echo "source /opt/ros/humble/setup.bash" >>/home/ros/.bashrc
+
+USER ros
+
+WORKDIR /ros_workspace/src
+RUN git clone --recursive https://github.com/damien-robotsix/px4-ros2-interface-lib
+RUN git clone --recursive https://github.com/PX4/px4_msgs
+WORKDIR /ros_workspace/src/px4-ros2-interface-lib
+RUN git checkout fix_ros_namespace
+
+WORKDIR /ros_workspace
+RUN . /opt/ros/humble/setup.sh && \
+    colcon build && \
+    rm -rf /ros_workspace/src
+
+RUN echo "source /ros_workspace/install/setup.bash" >>/home/ros/.bashrc

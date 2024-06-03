@@ -1,0 +1,7 @@
+launch:
+
+- node:
+    pkg: ros2_px4_interface
+    exec: modes_runner
+    name: modes_runner
+    namespace: uav0
