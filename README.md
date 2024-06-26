@@ -3,7 +3,7 @@
 ## Overview
 
 ROS2 UAV PX4 is a ROS 2 package designed to facilitate communication between a companion computer and the PX4 autopilot software using the [PX4 ROS 2 Interface Library](https://github.com/Auterion/px4-ros2-interface-lib/tree/main) and the [UAV CPP library](https://github.com/Robotsix-UAV/uav_cpp). <br>
-**Currently, this repository supports the main branch of PX4-Autopilot. Future updates will ensure compatibility with stable releases (v1.15 and later).**
+**Currently, this repository supports the main branch of PX4-Autopilot. Future updates will ensure compatibility with stable releases (v0.1 and later).**
 
 ## Documentation
 
