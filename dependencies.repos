@@ -1,0 +1,25 @@
+repositories:
+    ros2_uav_interfaces:
+        type: git
+        url: https://github.com/Robotsix-UAV/ros2_uav_interfaces
+        version: main
+
+    uav_cpp:
+        type: git
+        url: https://github.com/Robotsix-UAV/uav_cpp
+        version: main
+
+    ros2_uav_cpp:
+        type: git
+        url: https://github.com/Robotsix-UAV/ros2_uav_cpp
+        version: main
+
+    px4-ros2-interface-lib:
+        type: git
+        url: https://github.com/Auterion/px4-ros2-interface-lib
+        version: main
+
+    px4_msgs:
+        type: git
+        url: https://github.com/PX4/px4_msgs.git
+        version: main

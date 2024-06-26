@@ -1,29 +1,26 @@
 #pragma once
 
-#include "ros2_px4_interface/common/parameters.hpp"
-#include "ros2_px4_interface/modes/mode.hpp"
+#include <uav_cpp/modes/spin.hpp>
+#include <px4_ros2/components/mode.hpp>
+#include <px4_ros2/components/mode_executor.hpp>
 #include <px4_ros2/control/setpoint_types/experimental/attitude.hpp>
 
-namespace rpi::mode
+namespace ros2_uav::mode
 {
-using rpi::parameters::AutoRosParameter;
+using uav_cpp::parameters::ParameterMap;
 
-class ArmSpin : public ModeBasePublisher
+class Spin : public px4_ros2::ModeBase, public uav_cpp::modes::Spin
 {
 public:
-  explicit ArmSpin(rclcpp::Node & node);
+  Spin(rclcpp::Node & node, std::shared_ptr<ParameterMap> parameters);
 
 private:
   void onActivate() override {}
   void onDeactivate() override {}
   void updateSetpoint([[maybe_unused]] float dt) override;
-
-  rclcpp::Node & node_;
-  AutoRosParameter<float> spin_thrust_;
-  std::shared_ptr<px4_ros2::AttitudeSetpointType> attitude_setpoint_;
 };
 
-class ExecutorArmSpin : public ExecutorBasePublisher
+class ExecutorArmSpin : public px4_ros2::ModeExecutorBase
 {
 public:
   enum class State
