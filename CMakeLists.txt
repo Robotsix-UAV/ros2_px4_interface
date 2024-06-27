@@ -14,6 +14,7 @@ find_package(uav_cpp REQUIRED)
 find_package(ros2_uav_parameters REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(ros2_uav_interfaces REQUIRED)
+find_package(ros2_uav_cpp REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -22,12 +23,12 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-file(GLOB MODE_FILES src/mode/*.cpp)
+file(GLOB MODE_FILES src/modes/*.cpp)
 
 add_executable(modes_runner src/modes_runner.cpp ${MODE_FILES})
 target_include_directories(modes_runner PUBLIC include)
 ament_target_dependencies(modes_runner px4_ros2_cpp)
-target_link_libraries(modes_runner uav_cpp::modes ros2_uav_parameters::parameter_client)
+target_link_libraries(modes_runner uav_cpp::modes ros2_uav_parameters::parameter_client ros2_uav_cpp::ros2_uav_logger)
 
 install(TARGETS
   modes_runner
