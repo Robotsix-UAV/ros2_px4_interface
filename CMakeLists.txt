@@ -10,10 +10,7 @@ add_definitions(-DCMAKE_EXPORT_COMPILE_COMMANDS=ON)
 
 find_package(ament_cmake REQUIRED)
 find_package(px4_ros2_cpp REQUIRED)
-find_package(uav_cpp REQUIRED)
 find_package(ros2_uav_parameters REQUIRED)
-find_package(tf2 REQUIRED)
-find_package(ros2_uav_interfaces REQUIRED)
 find_package(ros2_uav_cpp REQUIRED)
 
 if(BUILD_TESTING)

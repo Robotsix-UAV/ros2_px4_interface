@@ -9,10 +9,10 @@ namespace ros2_uav::modes
 class Spin : public ros2_uav::modes::AttitudeThrust
 {
 public:
-  Spin(rclcpp::Node & node, std::shared_ptr<ParameterMap> parameters)
-  : ros2_uav::modes::AttitudeThrust("Spin", node, std::make_shared<uav_cpp::modes::Spin>(parameters))
-  {
-  }
+  Spin(rclcpp::Node & node)
+  : ros2_uav::modes::AttitudeThrust("Offboard Spin", node,
+      std::make_shared<uav_cpp::modes::Spin>())
+  {}
 };
 
 class ExecutorSpin : public px4_ros2::ModeExecutorBase
@@ -25,8 +25,8 @@ public:
   };
 
   ExecutorSpin(rclcpp::Node & node, px4_ros2::ModeBase & owned_mode)
-    : px4_ros2::ModeExecutorBase(node, px4_ros2::ModeExecutorBase::Settings{false} ,owned_mode)
-    {}
+  : px4_ros2::ModeExecutorBase(node, px4_ros2::ModeExecutorBase::Settings{false}, owned_mode)
+  {}
 
   void onActivate() override
   {
@@ -39,10 +39,11 @@ public:
     RCLCPP_DEBUG(node().get_logger(), "ExecutorSpin deactivated.");
   }
 
-  void runState(State state){
+  void runState(State state)
+  {
     switch (state) {
       case State::ARM:
-        RCLCPP_INFO(node().get_logger(), "Arming.");
+        RCLCPP_INFO(node().get_logger(), "[Spin Executor] Arming.");
         arm(
           [this](px4_ros2::Result result)
           {
@@ -51,10 +52,10 @@ public:
             }
           });
         break;
-        case State::SPIN:
-            scheduleMode(
-                ownedMode().id(), [](px4_ros2::Result){ return; });
-            break;
+      case State::SPIN:
+        scheduleMode(
+          ownedMode().id(), [](px4_ros2::Result) {return;});
+        break;
     }
   }
 };
